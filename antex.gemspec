@@ -5,7 +5,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'antex/version'
 
 Gem::Specification.new do |s|
-  s.name          = 'jekyll-antex'
+  s.name          = 'antex'
   s.version       = Antex::VERSION
   s.license       = 'MIT'
 

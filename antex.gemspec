@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
 
   all_files       = `git ls-files -z`.split("\x0")
   # TODO: the following grep must be revised
-  s.files         = all_files.grep(%r{^(test|spec|features)/})
+  s.files         = Dir['lib/**/*.rb']#all_files.grep(%r{^(test|spec|features)/})
   s.require_paths = ['lib']
 
   s.add_runtime_dependency('execjs')

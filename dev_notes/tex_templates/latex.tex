@@ -1,0 +1,43 @@
+\documentclass{article}
+\pagestyle{empty}
+
+\newbox\snippet
+\setbox\snippet=\hbox{\rule{1em}{1ex}}
+
+\newdimen\oneem
+\oneem=1em
+\newdimen\oneex
+\oneex=1ex
+
+\newwrite\metrics
+\immediate\openout\metrics=\jobname.yml
+\immediate\write\metrics{ex: \the\oneex}
+\immediate\write\metrics{em: \the\oneem}
+\immediate\write\metrics{ht: \the\ht\snippet}
+\immediate\write\metrics{dp: \the\dp\snippet}
+\immediate\write\metrics{wd: \the\wd\snippet}
+\immediate\closeout\metrics
+
+\begin{document}\box\snippet\end{document}
+
+%\newsavebox\snippet
+%\newlength\height
+%\newlength\depth
+%\newlength\width
+%
+%\begin{lrbox}{\snippet}\rule{1ex}{1ex}\end{lrbox}
+%
+%\settoheight\height{\usebox\snippet}
+%\settodepth \depth {\usebox\snippet}
+%\settowidth \width {\usebox\snippet}
+%\makeatletter
+%\newwrite\file
+%\immediate\openout\file=\jobname.yml
+%\immediate\write\file{ex: \strip@pt\dimexpr 1ex}
+%\immediate\write\file{dp: \strip@pt\depth}
+%\immediate\write\file{ht: \strip@pt\height}
+%\immediate\write\file{wd: \strip@pt\width}
+%\addtolength{\height} {\depth}
+%\immediate\write\file{th: \strip@pt\height}
+%\closeout\file
+%\makeatother

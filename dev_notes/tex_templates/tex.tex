@@ -1,0 +1,23 @@
+\nopagenumbers
+
+\newbox\snippet
+\setbox\snippet=\hbox{log}
+
+\newdimen\oneem
+\oneem=1em
+\newdimen\oneex
+\oneex=1ex
+
+\newwrite\metrics
+\immediate\openout\metrics=\jobname.yml
+\immediate\write\metrics{ex: \the\oneex}
+\immediate\write\metrics{em: \the\oneem}
+\immediate\write\metrics{ht: \the\ht\snippet}
+\immediate\write\metrics{dp: \the\dp\snippet}
+\immediate\write\metrics{wd: \the\wd\snippet}
+\immediate\closeout\metrics
+
+\box\snippet
+
+\bye
+

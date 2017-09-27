@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'antex/version'
 require 'antex/compiler/job'
 require 'antex/compiler/pipeline'
 require 'antex/metrics/gauge'

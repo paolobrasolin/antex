@@ -9,7 +9,7 @@ $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 
 require 'antex'
 
-Jekyll.logger.log_level = :error
+# Jekyll.logger.log_level = :error
 
 RSpec.configure do |config|
   config.run_all_when_everything_filtered = true

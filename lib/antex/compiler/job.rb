@@ -17,13 +17,13 @@ module Antex
         )
       end
 
-      def add_to_static_files_of(site)
-        FileUtils.cp(file(:fit), file(:svg))
-        # TODO: minify/compress svg?
-        site.static_files << Jekyll::StaticFile.new(
-          site, dir(:work), @options['dest_dir'], "#{@hash}.svg"
-        )
-      end
+      # def add_to_static_files_of(site)
+      #   FileUtils.cp(file(:fit), file(:svg))
+      #   # TODO: minify/compress svg?
+      #   site.static_files << Jekyll::StaticFile.new(
+      #     site, dir(:work), @options['dest_dir'], "#{@hash}.svg"
+      #   )
+      # end
 
       def html_tag
         img_tag = @gauge.render_img_tag("/#{@options['dest_dir']}/#{@hash}.svg")

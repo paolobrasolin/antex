@@ -2,7 +2,10 @@
 
 module Antex
   module Compiler
+
     class Job
+      attr_accessor :options, :hash # TODO: drop
+
       def initialize(snippet: '', options: {})
         @options = options
         @snippet = snippet
@@ -31,7 +34,7 @@ module Antex
         "<span class='#{classes}'>#{img_tag}</span>"
       end
 
-      private
+      # private
 
       def make_dirs
         FileUtils.mkdir_p dir(:work)

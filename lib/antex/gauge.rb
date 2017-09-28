@@ -4,7 +4,7 @@ module Antex
   module Metrics
     class Gauge
       def initialize(yml:, tfm:, fit:, precision: 3)
-        @tex = TeXBox.new(filename: yml, unit: :ex)
+        @tex = TexBox.new(filename: yml, unit: :ex)
         @tfm = SVGBox.new(filename: tfm, unit: :px)
         @fit = SVGBox.new(filename: fit, unit: :px)
         @precision = precision

@@ -5,7 +5,7 @@ require 'yaml'
 module Antex
   module Metrics
     class TeXBox < Set
-      private
+      # private
 
       def load(filename)
         @metrics = Hash[

@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-xdescribe Antex::Metrics::TeXBox do
+describe Antex::Metrics::TeXBox do
   let(:data) { { true_metric: '10.0pt', zero_metric: '0.0pt' } }
   let(:result) { { true_metric: 10.0, zero_metric: 0.0, pt: 1.0 } }
 

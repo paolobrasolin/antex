@@ -3,7 +3,7 @@
 module Antex
   module Metrics
     class Set
-      # attr_reader :unit, :metrics
+      attr_reader :unit, :metrics
 
       def initialize(filename: nil, unit: nil)
         @metrics = {}
@@ -11,15 +11,15 @@ module Antex
         self.unit = unit unless unit.nil?
       end
 
-      private
-
       attr_writer :unit
 
+      private
+
       def calc(metric, unit = @unit)
-        # raise "Invalid metric: #{metric} is undefined." unless @metrics.key? metric
-        # raise 'Invalid unit: default is not set.' if unit.nil?
-        # raise "Invalid unit: #{unit} is undefined." unless @metrics.key? unit
-        # raise "Invalid unit: #{unit} is zero." if @metrics[unit].zero?
+        raise "Invalid metric: #{metric} is undefined." unless @metrics.key? metric
+        raise 'Invalid unit: default is not set.' if unit.nil?
+        raise "Invalid unit: #{unit} is undefined." unless @metrics.key? unit
+        raise "Invalid unit: #{unit} is zero." if @metrics[unit].zero?
         @metrics[metric] / @metrics[unit]
       end
 

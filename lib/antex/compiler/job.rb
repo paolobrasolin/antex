@@ -2,7 +2,6 @@
 
 module Antex
   module Compiler
-
     class Job
       attr_accessor :options, :hash # TODO: drop
 

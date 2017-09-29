@@ -14,9 +14,8 @@ module Antex
         make_dirs
         prepare_code
         run_pipeline
-        @gauge = Metrics::Gauge.new(
-          Hash[%i[yml tfm fit].map { |sym| [sym, file(sym)] }]
-        )
+        filehash = %i[yml tfm fit].map { |sym| [sym, file(sym)] }.to_h
+        @gauge = SetBox.new.load filehash
       end
 
       # def add_to_static_files_of(site)

@@ -10,8 +10,10 @@ module Antex
       @tex.default_unit = :ex
       self.measures = compute_measures
       self.default_unit = :ex
+      self
     end
 
+    # This should not be here, methinks.
     def render_img_tag(src, precision: 3)
       <<~IMG_TAG.gsub(/(\s\s+)/m, ' ').strip!
         <img style='margin: #{mt.round(precision)}ex

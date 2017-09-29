@@ -1,3 +1,4 @@
+# coding: utf-8
 # frozen_string_literal: true
 
 module Antex
@@ -25,14 +26,35 @@ module Antex
 
       private
 
+
+      #
+      #  .--> x     ml    fit.dx     mr
+      #  |         |--|-------------|--|
+      #  v y
+      #         -  ,-------------------.  -
+      #      mt |  |        TFM        |  |
+      #         -  |  ,-------------.  |  | tfm.dy
+      #         |  |  |     FIT     |  |  |
+      #         |  |  |             |  |  |
+      #  fit.dy |  |  |             |  |  |    r    ,-------.  - tex.ht
+      #         |  |  |             |  |  |  <--->  |  TEX  |  |
+      #         |  |- |- - - - - - -| -|  |         |- - - -|  -
+      #         -  |  `-------------'  |  |         `-------'  - tex.dp
+      #      mb |  |                   |  |         |-------|
+      #         -  `-------------------'  -           tex.wd
+      #
+      #            |-------------------|
+      #                   tfm.dx
+      #
+
       def compute_margins
         r = (@tex.ht + @tex.dp) / @tfm.dy # [ex/px]
+        @th = r * @fit.dy
+        @wd = r * @fit.dx
         @ml = r * (- @tfm.ox + @fit.ox)
         @mt = r * (- @tfm.oy + @fit.oy)
         @mr = r * (+ @tfm.dx - @fit.dx) - @ml
         @mb = r * (+ @tfm.dy - @fit.dy) - @mt - @tex.dp
-        @th = r * @fit.dy
-        @wd = r * @fit.dx
       end
     end
   end

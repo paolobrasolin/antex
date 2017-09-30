@@ -6,4 +6,5 @@
 
 [![Code Climate](https://codeclimate.com/github/paolobrasolin/antex/badges/gpa.svg)](https://codeclimate.com/github/paolobrasolin/antex)
 [![Test Coverage](https://codeclimate.com/github/paolobrasolin/antex/badges/coverage.svg)](https://codeclimate.com/github/paolobrasolin/antex/coverage)
+[![Inline docs](http://inch-ci.org/github/paolobrasolin/antex.svg?branch=master)](http://inch-ci.org/github/paolobrasolin/antex)
 [![Issue Count](https://codeclimate.com/github/paolobrasolin/antex/badges/issue_count.svg)](https://codeclimate.com/github/paolobrasolin/antex)

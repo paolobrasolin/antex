@@ -1,9 +1,18 @@
 # frozen_string_literal: true
 
 module Antex
+  # Exposes helper methods to simplify +Liquid+ templates rendering.
   module LiquidHelpers
     class UnknownClass < Error; end
 
+    # Recursively renders +Liquid+ template strings, possibly organized in
+    # nested arrays and hashes, using the given hash of contextual variables.
+    #
+    # @param object [String, Array, Hash] the object to render
+    # @param context_hash [Hash]
+    #   the context hash accessible from the object strings
+    # @return [String] the rendered object
+    # @raise [UnknownClass] when given anything that's not renderable
     def liquid_render(object, context_hash = {})
       case object
       when String

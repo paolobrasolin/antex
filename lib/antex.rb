@@ -8,6 +8,5 @@ require 'antex/tex_box'
 require 'antex/svg_box'
 require 'antex/set_box'
 
-# require 'antex/gauge'
-# require 'antex/compiler/job'
-# require 'antex/compiler/pipeline'
+require 'antex/job'
+require 'antex/pipeline'

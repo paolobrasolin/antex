@@ -1,4 +1,3 @@
-# coding: utf-8
 # frozen_string_literal: true
 
 module Antex
@@ -10,8 +9,10 @@ module Antex
       @tex.default_unit = :ex
       self.measures = compute_measures
       self.default_unit = :ex
+      self
     end
 
+    # TODO: keep in jekyll-antex
     def render_img_tag(src, precision: 3)
       <<~IMG_TAG.gsub(/(\s\s+)/m, ' ').strip!
         <img style='margin: #{mt.round(precision)}ex
@@ -20,7 +21,7 @@ module Antex
                             #{ml.round(precision)}ex;
                     height: #{th.round(precision)}ex;
                     width:  #{wd.round(precision)}ex;'
-            src='#{src}' />
+             src='#{src}' />
       IMG_TAG
     end
 
@@ -47,6 +48,7 @@ module Antex
     #
 
     def compute_measures # rubocop:disable Metrics/AbcSize
+      # TODO: prevent division by zero in smart way
       ex_px = (@tex.ht + @tex.dp) / @tfm.dy # [ex/px]
       {
         ex: 1,

@@ -3,7 +3,9 @@
 require 'spec_helper'
 
 describe Antex::SetBox do
-  let(:result) { { ex: 1, th: 6.0, wd: 10.5, ml: 0.5, mt: 1.0, mr: -1.0, mb: -3.0} }
+  let(:result) do
+    { ex: 1, th: 6.0, wd: 10.5, ml: 0.5, mt: 1.0, mr: -1.0, mb: -3.0 }
+  end
 
   describe '#load' do
     subject { described_class.new }

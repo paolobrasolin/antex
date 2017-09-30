@@ -1,7 +1,7 @@
 # antex
 
 [![Build Status](https://travis-ci.org/paolobrasolin/antex.svg?branch=master)](https://travis-ci.org/paolobrasolin/antex)
-[![Latest Release](https://img.shields.io/github/release/paolobrasolin/antex.svg)](https://github.com/paolobrasolin/antex)
+[![Gem Version](https://badge.fury.io/rb/antex.svg)](https://badge.fury.io/rb/antex)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 [![Code Climate](https://codeclimate.com/github/paolobrasolin/antex/badges/gpa.svg)](https://codeclimate.com/github/paolobrasolin/antex)

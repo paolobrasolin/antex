@@ -2,19 +2,36 @@
 
 module Antex
   module LiquidHelpers
+    class UnknownClass < Error; end
+
+    def liquid_render(object, context_hash = {})
+      case object
+      when String
+        liquid_render_string object, context_hash
+      when Array
+        liquid_render_array object, context_hash
+      when Hash
+        liquid_render_hash object, context_hash
+      else
+        raise UnknownClass, "I don't know how to render a #{object.class}."
+      end
+    end
+
+    private
+
     def liquid_render_string(string, context_hash = {})
-      Liquid::Template.parse(String(string)).render(context_hash)
+      Liquid::Template.parse(string).render(context_hash)
     end
 
     def liquid_render_array(array, context_hash = {})
-      Array(array).map do |element|
-        liquid_render_string element, context_hash
+      array.map do |element|
+        liquid_render element, context_hash
       end
     end
 
     def liquid_render_hash(hash, context_hash = {})
-      Hash(hash).map do |key, value|
-        [key, liquid_render_string(value, context_hash)]
+      hash.map do |key, value|
+        [key, liquid_render(value, context_hash)]
       end.to_h
     end
   end

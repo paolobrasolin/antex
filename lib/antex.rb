@@ -10,4 +10,4 @@ require 'antex/set_box'
 
 require 'antex/liquid_helpers'
 require 'antex/job'
-require 'antex/pipeline'
+require 'antex/command'

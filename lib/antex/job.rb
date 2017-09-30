@@ -4,9 +4,7 @@ module Antex
   class Job
     include LiquidHelpers
 
-    attr_reader :options, :hash
-
-    attr_reader :set_box
+    attr_reader :options, :dirs, :files, :hash, :set_box
 
     def initialize(snippet: '', options: {})
       @options = options
@@ -21,7 +19,8 @@ module Antex
       prepare_files
 
       write_code
-      run_pipeline
+
+      run_pipeline!
       load_set_box
     end
 
@@ -32,22 +31,14 @@ module Antex
       "<span class='#{classes}'>#{img_tag}</span>"
     end
 
-    def dir(key)
-      @dirs[key.to_s]
-    end
-
-    def file(key)
-      @files[key.to_s]
-    end
-
     private
 
     def prepare_code
-      @code = liquid_render_string @options['template'],
-                                   'preamble' => @options['preamble'],
-                                   'append'   => @options['append'],
-                                   'prepend'  => @options['prepend'],
-                                   'snippet'  => @snippet
+      @code = liquid_render @options['template'],
+                            'preamble' => @options['preamble'],
+                            'append'   => @options['append'],
+                            'prepend'  => @options['prepend'],
+                            'snippet'  => @snippet
     end
 
     def prepare_hash
@@ -55,15 +46,15 @@ module Antex
     end
 
     def prepare_dirs
-      @dirs = liquid_render_hash @options['dirs'],
-                                 'hash' => @hash
+      @dirs = liquid_render @options['dirs'],
+                            'hash' => @hash
       @dirs.each_value { |path| FileUtils.mkdir_p path }
     end
 
     def prepare_files
-      @files = liquid_render_hash @options['files'],
-                                  'dir' => @dirs,
-                                  'hash' => @hash
+      @files = liquid_render @options['files'],
+                             'hash' => @hash,
+                             'dir' => @dirs
     end
 
     def write_code
@@ -71,18 +62,24 @@ module Antex
       File.open(@files['tex'], 'w') { |io| io.write @code }
     end
 
-    def run_pipeline
-      Pipeline.new(
-        pipeline: @options['pipeline'],
-        commands: @options['commands'],
-        binding: { 'dir' => @dirs, 'file' => @files, 'hash' => @hash }
-      ).run
+    def run_pipeline!
+      context = { 'hash' => @hash, 'dir' => @dirs, 'file' => @files }
+      pipeline = liquid_render @options['pipeline'], context
+      commands = liquid_render @options['commands'], context
+
+      pipeline.each do |command_name|
+        options = { name: command_name,
+                    sources: commands[command_name]['sources'],
+                    targets: commands[command_name]['targets'],
+                    command_line: commands[command_name]['command'].join(' ') }
+        Command.new(options).run!
+      end
     end
 
     def load_set_box
-      @set_box = SetBox.new.load yml: file(:yml),
-                                 tfm: file(:tfm),
-                                 fit: file(:fit)
+      @set_box = SetBox.new.load yml: @files['yml'],
+                                 tfm: @files['tfm'],
+                                 fit: @files['fit']
     end
   end
 end

@@ -6,7 +6,8 @@ module Antex
   #
   # Three files are required by {#load} for initialization:
   # [+YAML+ file containing +TeX+ measures]
-  #   We obtain this by using +TeX+ directly to measure the box and write to file.
+  #   We obtain this by using +TeX+ directly
+  #   to measure the box and write to file.
   #   Required metrics are +ht+, +dp+ and +wd+ (naturally expressed in +pt+s).
   # [+SVG+ picture fitting +tfm+ metrics]
   #   We obtain this by converting the +DVI+ rendition of the box

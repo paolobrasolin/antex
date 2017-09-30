@@ -16,7 +16,7 @@ module Antex
     #   dp: 2.0pt
     #
     # @param filepath [String] the path of the YAML file to load
-    # @return [TexBox] returns self after loading
+    # @return [TexBox] returns +self+ after loading
     def load(filepath)
       yaml_hash = YAML.safe_load File.read(filepath)
       units = yaml_hash.keys.map(&:to_sym)

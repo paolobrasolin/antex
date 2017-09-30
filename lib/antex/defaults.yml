@@ -1,0 +1,73 @@
+template: |
+  \documentclass{article}
+  \pagestyle{empty}
+  {{ preamble }}
+  \newsavebox\snippet
+  \begin{lrbox}{\snippet}{{ prepend }}{{ snippet }}{{ append }}\end{lrbox}
+  \newwrite\file
+  \immediate\openout\file=\jobname.yml
+  \immediate\write\file{em: \the\dimexpr1em}
+  \immediate\write\file{ex: \the\dimexpr1ex}
+  \immediate\write\file{ht: \the\ht\snippet}
+  \immediate\write\file{dp: \the\dp\snippet}
+  \immediate\write\file{wd: \the\wd\snippet}
+  \closeout\file
+  \begin{document}\usebox{\snippet}\end{document}
+preamble:
+prepend:
+append:
+dirs:
+  work: .antex-cache
+files:
+  tex: "{{ dir.work }}/{{ hash }}.tex"
+  dvi: "{{ dir.work }}/{{ hash }}.dvi"
+  yml: "{{ dir.work }}/{{ hash }}.yml"
+  tfm: "{{ dir.work }}/{{ hash }}.tfm.svg"
+  fit: "{{ dir.work }}/{{ hash }}.fit.svg"
+  svg: "{{ dir.work }}/{{ hash }}.svg"
+pipeline:
+  - latexmk
+  - dvisvgm_tfm
+  - dvisvgm_fit
+  - rename
+commands:
+  latexmk:
+    command:
+      - "latexmk"
+      - "-output-directory={{ dir.work }}"
+      - "{{ file.tex }}"
+    sources:
+      - "{{ file.tex }}"
+    targets:
+      - "{{ file.dvi }}"
+      - "{{ file.yml }}"
+  dvisvgm_tfm:
+    command:
+      - "dvisvgm"
+      - "--no-fonts"
+      - "{{ file.dvi }}"
+      - "--output={{ file.tfm }}"
+    sources:
+      - "{{ file.dvi }}"
+    targets:
+      - "{{ file.tfm }}"
+  dvisvgm_fit:
+    command:
+      - "dvisvgm"
+      - "--no-fonts"
+      - "--exact"
+      - "{{ file.dvi }}"
+      - "--output={{ file.fit }}"
+    sources:
+      - "{{ file.dvi }}"
+    targets:
+      - "{{ file.fit }}"
+  rename:
+    command:
+      - "cp"
+      - "{{ file.fit }}"
+      - "{{ file.svg }}"
+    sources:
+      - "{{ file.fit }}"
+    targets:
+      - "{{ file.svg }}"

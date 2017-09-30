@@ -24,13 +24,6 @@ module Antex
       load_set_box
     end
 
-    # TODO: should be in jekyll-antex
-    def html_tag
-      img_tag = @set_box.render_img_tag("/#{@options['work_dir']}/#{@hash}.svg")
-      classes = @options['classes'].join(' ')
-      "<span class='#{classes}'>#{img_tag}</span>"
-    end
-
     private
 
     def prepare_code

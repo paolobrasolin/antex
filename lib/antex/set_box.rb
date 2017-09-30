@@ -12,19 +12,6 @@ module Antex
       self
     end
 
-    # TODO: keep in jekyll-antex
-    def render_img_tag(src, precision: 3)
-      <<~IMG_TAG.gsub(/(\s\s+)/m, ' ').strip!
-        <img style='margin: #{mt.round(precision)}ex
-                            #{mr.round(precision)}ex
-                            #{mb.round(precision)}ex
-                            #{ml.round(precision)}ex;
-                    height: #{th.round(precision)}ex;
-                    width:  #{wd.round(precision)}ex;'
-             src='#{src}' />
-      IMG_TAG
-    end
-
     private
 
     #

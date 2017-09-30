@@ -14,8 +14,8 @@ module Antex
   #
   # The {Antex::Job::DEFAULTS} are tuned to work with a basic
   # +latexmk+/+dvisvgm+ pipeline.
-  # To get started with customization. you'll want to read the well documented
-  # +YAML+ source loaded into the constant at the
+  # To get started with customization. you'll want to read the (not yet well
+  # documented) +YAML+ source loaded into the constant at the
   # {https://github.com/paolobrasolin/antex/blob/master/lib/antex/defaults.yml
   # github repo}.
   class Job

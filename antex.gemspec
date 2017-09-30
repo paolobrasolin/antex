@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'execjs'
   spec.add_runtime_dependency 'digest'
   spec.add_runtime_dependency 'nokogiri'
-  # spec.add_runtime_dependency 'fileutils'
+  spec.add_runtime_dependency 'liquid'
 
   # spec.add_development_dependency 'cucumber'
   spec.add_development_dependency 'guard'

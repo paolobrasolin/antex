@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'liquid'
+
 module Antex
   # Exposes helper methods to simplify +Liquid+ templates rendering.
   module LiquidHelpers

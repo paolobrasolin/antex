@@ -62,9 +62,13 @@ module Antex
       files.all?(&File.method(:exist?))
     end
 
+    def missing(files)
+      files.reject(&File.method(:exist?))
+    end
+
     def check_source_files!
       raise MissingSourceFiles, <<~MISSING_SOURCE unless all_exist? @sources
-        Required source files #{@sources.reject(&File.method(:exist?))} for command #{@name} are missing.
+        Required source files #{missing @sources} for command #{@name} are missing.
       MISSING_SOURCE
     end
 
@@ -82,7 +86,7 @@ module Antex
 
     def check_target_files!
       raise MissingTargetFiles, <<~MISSING_TARGET unless all_exist? @targets
-        Expected target files #{@targets.reject(&File.method(:exist?))} were not produced by command #{@name}.
+        Expected target files #{missing @targets} were not produced by command #{@name}.
       MISSING_TARGET
     end
   end

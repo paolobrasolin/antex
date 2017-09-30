@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 require 'open3'
-require 'erb'
 
 module Antex
   class Pipeline
+    include LiquidHelpers
+
     class MissingSourceFiles < Error; end
     class MissingTargetFiles < Error; end
     class FailedCommand < Error; end
@@ -23,23 +24,17 @@ module Antex
 
     private
 
-    def erb_render_all(array)
-      Array(array).map do |element|
-        ERB.new(element).result @binding
-      end
-    end
-
     def run_command(command_name, command)
-      targets = erb_render_all command['targets']
+      targets = liquid_render_array command['targets'], @binding
       # Skip if targets exist.
       return if all_exist? targets
 
-      sources = erb_render_all command['sources']
+      sources = liquid_render_array command['sources'], @binding
       # Raise if sources are missing.
       check_source_files!(sources: sources, command_name: command_name)
 
       # Execute command.
-      command_line = erb_render_all(command['command']).join(' ')
+      command_line = liquid_render_array(command['command'], @binding).join(' ')
       stdout, stderr, status = Open3.capture3 command_line
 
       # Raise if command failed

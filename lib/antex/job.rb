@@ -2,6 +2,8 @@
 
 module Antex
   class Job
+    include LiquidHelpers
+
     attr_reader :options, :hash
 
     attr_reader :set_box
@@ -12,8 +14,13 @@ module Antex
     end
 
     def run
-      prepare_dirs
       prepare_code
+      prepare_hash
+
+      prepare_dirs
+      prepare_files
+
+      write_code
       run_pipeline
       load_set_box
     end
@@ -26,53 +33,49 @@ module Antex
     end
 
     def dir(key)
-      @dirs ||= {
-        work: @options['work_dir']
-      }
-
-      @dirs[key]
+      @dirs[key.to_s]
     end
 
     def file(key)
-      @files ||= {
-        tex: File.join(@options['work_dir'], "#{@hash}.tex"),
-        dvi: File.join(@options['work_dir'], "#{@hash}.dvi"),
-        yml: File.join(@options['work_dir'], "#{@hash}.yml"),
-        tfm: File.join(@options['work_dir'], "#{@hash}.tfm.svg"),
-        fit: File.join(@options['work_dir'], "#{@hash}.fit.svg"),
-        svg: File.join(@options['work_dir'], "#{@hash}.svg")
-      }
-
-      @files[key]
+      @files[key.to_s]
     end
 
     private
 
-    def prepare_dirs
-      FileUtils.mkdir_p dir(:work)
+    def prepare_code
+      @code = liquid_render_string @options['template'],
+                                   'preamble' => @options['preamble'],
+                                   'append'   => @options['append'],
+                                   'prepend'  => @options['prepend'],
+                                   'snippet'  => @snippet
     end
 
-    def prepare_code
-      template = Liquid::Template.parse @options['template']
-
-      @code = template.render(
-        'preamble' => @options['preamble'],
-        'append'   => @options['append'],
-        'prepend'  => @options['prepend'],
-        'snippet'  => @snippet
-      )
-
+    def prepare_hash
       @hash = Digest::MD5.hexdigest @code
+    end
 
-      return if File.exist? file(:tex)
-      File.open(file(:tex), 'w') { |file| file.write @code }
+    def prepare_dirs
+      @dirs = liquid_render_hash @options['dirs'],
+                                 'hash' => @hash
+      @dirs.each_value { |path| FileUtils.mkdir_p path }
+    end
+
+    def prepare_files
+      @files = liquid_render_hash @options['files'],
+                                  'dir' => @dirs,
+                                  'hash' => @hash
+    end
+
+    def write_code
+      return if File.exist? @files['tex']
+      File.open(@files['tex'], 'w') { |io| io.write @code }
     end
 
     def run_pipeline
       Pipeline.new(
         pipeline: @options['pipeline'],
         commands: @options['commands'],
-        binding: binding
+        binding: { 'dir' => @dirs, 'file' => @files, 'hash' => @hash }
       ).run
     end
 

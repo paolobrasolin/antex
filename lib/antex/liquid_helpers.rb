@@ -41,9 +41,9 @@ module Antex
     end
 
     def liquid_render_hash(hash, context_hash = {})
-      hash.map do |key, value|
-        [key, liquid_render(value, context_hash)]
-      end.to_h
+      hash.transform_values do |value|
+        liquid_render(value, context_hash)
+      end
     end
   end
 end

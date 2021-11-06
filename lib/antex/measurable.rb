@@ -22,6 +22,7 @@ module Antex
     def default_unit=(unit)
       raise InvalidUnit, "Unit #{unit} is undefined." unless @measures.key? unit
       raise InvalidUnit, "Unit #{unit} is zero." if @measures[unit].zero?
+
       @default_unit = unit
     end
 
@@ -40,6 +41,7 @@ module Antex
       raise InvalidUnit, 'Default unit is not set.' if unit.nil?
       raise InvalidUnit, "Unit #{unit} is undefined." unless @measures.key? unit
       raise InvalidUnit, "Unit #{unit} is zero." if @measures[unit].zero?
+
       @measures[metric].fdiv @measures[unit]
     end
 
@@ -59,6 +61,7 @@ module Antex
     #   mea.mi # => 1.0
     def method_missing(method_name, *arguments, &block)
       return super unless @measures.include? method_name
+
       send :calculate, method_name, *arguments, &block
     end
   end

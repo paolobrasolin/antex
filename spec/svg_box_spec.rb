@@ -22,13 +22,13 @@ describe Antex::SVGBox do
     end
 
     it 'loads measures from an svg file' do
-      expect { subject.load 'filename' }
-        .to change { subject.measures }.from({}).to(result)
+      expect { subject.load 'filename' }.
+        to change { subject.measures }.from({}).to(result)
     end
 
     it 'sets the default unit to px' do
-      expect { subject.load 'filename' }
-        .to change { subject.default_unit }.from(nil).to(:px)
+      expect { subject.load 'filename' }.
+        to change { subject.default_unit }.from(nil).to(:px)
     end
   end
 end

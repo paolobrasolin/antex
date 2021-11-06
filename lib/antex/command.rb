@@ -15,7 +15,9 @@ module Antex
   # the attributes {#stdout}, {#stderr} and {#status}.
   class Command
     class MissingSourceFiles < Error; end
+
     class MissingTargetFiles < Error; end
+
     class ExecutionFailed < Error; end
 
     # @return [String, nil] the +stdout+ returned by the command line
@@ -50,6 +52,7 @@ module Antex
     # @raise [MissingTargetFiles] when command does not create target files
     def run!
       return if all_exist? @targets
+
       check_source_files!
       @stdout, @stderr, @status = Open3.capture3 @command_line
       check_status!

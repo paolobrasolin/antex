@@ -19,16 +19,16 @@ describe Antex::Measurable do
     subject { Antex::Measurable.new }
 
     it 'accepts a hash of measures' do
-      expect { subject.measures = { foo: 1, bar: 2 } }
-        .to change { subject.measures }.from({}).to(foo: 1, bar: 2)
+      expect { subject.measures = { foo: 1, bar: 2 } }.
+        to change { subject.measures }.from({}).to(foo: 1, bar: 2)
     end
 
     it 'resets the default unit' do
       subject.measures = { foo: 1 }
       subject.default_unit = :foo
 
-      expect { subject.measures = { bar: 2 } }
-        .to change { subject.default_unit }.from(:foo).to(nil)
+      expect { subject.measures = { bar: 2 } }.
+        to change { subject.default_unit }.from(:foo).to(nil)
     end
   end
 
@@ -37,18 +37,18 @@ describe Antex::Measurable do
     before { subject.measures = { foo: 1, bar: 0 } }
 
     it 'sets the default unit' do
-      expect { subject.default_unit = :foo }
-        .to change { subject.default_unit }.from(nil).to(:foo)
+      expect { subject.default_unit = :foo }.
+        to change { subject.default_unit }.from(nil).to(:foo)
     end
 
     it 'raises if unit is zero' do
-      expect { subject.default_unit = :bar }
-        .to raise_error Antex::Measurable::InvalidUnit
+      expect { subject.default_unit = :bar }.
+        to raise_error Antex::Measurable::InvalidUnit
     end
 
     it 'raises if unit is undefined' do
-      expect { subject.default_unit = :baz }
-        .to raise_error Antex::Measurable::InvalidUnit
+      expect { subject.default_unit = :baz }.
+        to raise_error Antex::Measurable::InvalidUnit
     end
   end
 

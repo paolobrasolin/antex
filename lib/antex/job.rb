@@ -65,9 +65,9 @@ module Antex
     def prepare_code
       @code = liquid_render @options['template'],
                             'preamble' => @options['preamble'],
-                            'append'   => @options['append'],
-                            'prepend'  => @options['prepend'],
-                            'snippet'  => @snippet
+                            'append' => @options['append'],
+                            'prepend' => @options['prepend'],
+                            'snippet' => @snippet
     end
 
     def prepare_hash
@@ -91,6 +91,7 @@ module Antex
 
     def write_code
       return if File.exist? @files['tex']
+
       File.open(@files['tex'], 'w') { |io| io.write @code }
     end
 

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-lib = File.expand_path('../lib', __FILE__)
+lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'antex/version'
 
@@ -24,8 +24,8 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = '>= 2.6'
 
-  spec.add_runtime_dependency 'nokogiri', '~> 1'
   spec.add_runtime_dependency 'liquid', ['>= 3', '< 6']
+  spec.add_runtime_dependency 'nokogiri', '~> 1'
 
   spec.add_development_dependency 'guard', '~> 2.18.0'
   spec.add_development_dependency 'guard-rspec', '~> 4.7.3'

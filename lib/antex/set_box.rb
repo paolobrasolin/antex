@@ -68,7 +68,7 @@ module Antex
         ml: ex_px * (- @tfm.ox + @fit.ox),
         mt: ex_px * (- @tfm.oy + @fit.oy),
         mr: ex_px * (+ @tfm.ox - @fit.ox + @tfm.dx - @fit.dx),
-        mb: ex_px * (+ @tfm.oy - @fit.oy + @tfm.dy - @fit.dy) - @tex.dp
+        mb: (ex_px * (+ @tfm.oy - @fit.oy + @tfm.dy - @fit.dy)) - @tex.dp
       }
     end
 

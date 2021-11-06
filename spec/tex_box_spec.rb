@@ -17,13 +17,13 @@ describe Antex::TexBox do
     end
 
     it 'loads measures from a yaml file' do
-      expect { subject.load 'filename' }
-        .to change { subject.measures }.from({}).to(result)
+      expect { subject.load 'filename' }.
+        to change { subject.measures }.from({}).to(result)
     end
 
     it 'sets the default unit to pt' do
-      expect { subject.load 'filename' }
-        .to change { subject.default_unit }.from(nil).to(:pt)
+      expect { subject.load 'filename' }.
+        to change { subject.default_unit }.from(nil).to(:pt)
     end
   end
 end

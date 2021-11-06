@@ -44,8 +44,8 @@ describe Antex::SetBox do
       end
 
       it 'loads measures from an svg file' do
-        expect { subject.load yml: 'tex.yml', tfm: 'tfm.svg', fit: 'fit.svg' }
-          .to change { subject.measures }.from({}).to(result)
+        expect { subject.load yml: 'tex.yml', tfm: 'tfm.svg', fit: 'fit.svg' }.
+          to change { subject.measures }.from({}).to(result)
       end
     end
 
@@ -74,8 +74,8 @@ describe Antex::SetBox do
       end
 
       it 'raises an error due to measures' do
-        expect { subject.load yml: 'tex.yml', tfm: 'tfm.svg', fit: 'fit.svg' }
-          .to raise_exception Antex::SetBox::InvalidMeasure
+        expect { subject.load yml: 'tex.yml', tfm: 'tfm.svg', fit: 'fit.svg' }.
+          to raise_exception Antex::SetBox::InvalidMeasure
       end
     end
   end

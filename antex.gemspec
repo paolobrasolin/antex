@@ -22,10 +22,10 @@ Gem::Specification.new do |spec|
   spec.files         = `git ls-files lib README.md LICENSE.txt`.split("\n")
   spec.require_paths = ['lib']
 
-  spec.required_ruby_version = '>= 2.3'
+  spec.required_ruby_version = '>= 2.6'
 
   spec.add_runtime_dependency 'nokogiri', '~> 1'
-  spec.add_runtime_dependency 'liquid', '~> 3'
+  spec.add_runtime_dependency 'liquid', ['>= 3', '< 6']
 
   spec.add_development_dependency 'guard', '~> 2.14'
   spec.add_development_dependency 'guard-rspec', '~> 4.7'

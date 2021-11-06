@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'tmpdir'
 
 describe Antex::Command do
   let(:tmpdir) { File.join Dir.tmpdir, 'antex_tests' }

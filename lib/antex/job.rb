@@ -104,7 +104,7 @@ module Antex
                     sources: commands[command_name]['sources'],
                     targets: commands[command_name]['targets'],
                     command_line: commands[command_name]['command'].join(' ') }
-        Command.new(options).run!
+        Command.new(**options).run!
       end
     end
 

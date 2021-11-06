@@ -29,7 +29,7 @@ module Antex
     # @note When setting, the default unit will be set to +nil+.
     attr_reader :measures
 
-    def measures=(**measures)
+    def measures=(measures)
       @default_unit = nil
       @measures = measures
     end

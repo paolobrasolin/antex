@@ -37,45 +37,12 @@ jobs:
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
 
-      - name: Cache TeXLive distribution
-        uses: actions/cache@v2
-        id: cache-texlive
+      - name: Setup TeX Live
+        uses: paolobrasolin/setup-texlive-action@main
         with:
-          path: ${{ runner.tool_cache }}/texlive
-          key: texlive-${{ matrix.os }}-${{ hashFiles('.github/texlive.*') }}
-          restore-keys: texlive-${{ matrix.os }}-
-
-      - name: Install TeXLive (infraonly)
-        if: steps.cache-texlive.outputs.cache-hit != 'true'
-        env:
-          TEXLIVE_INSTALL_PREFIX: ${{ runner.tool_cache }}/texlive
-          TEXLIVE_PROFILE_PATH: ${{ github.workspace }}/.github/texlive.profile
-        run: |
-          cd ${{ runner.temp }}
-          wget -q http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
-          tar -xzf install-tl-unx.tar.gz
-          cd install-tl-20* || exit 1
-          ./install-tl --portable --profile="$TEXLIVE_PROFILE_PATH"
-          echo "$TEXLIVE_INSTALL_PREFIX/bin/x86_64-linux" >> $GITHUB_PATH
-
-      - name: Install TeXLive packages
-        if: steps.cache-texlive.outputs.cache-hit != 'true'
-        env:
-          TEXLIVE_PACKAGES_PATH: ${{ github.workspace }}/.github/texlive.packages
-        run: |
-          readarray -t TEXLIVE_PACKAGES < <(grep -v '^#' "$TEXLIVE_PACKAGES_PATH")
-          tlmgr install "${TEXLIVE_PACKAGES[@]}"
-
-      - name: Update TeXLive distribution
-        if: steps.cache-texlive.outputs.cache-hit == 'true'
-        env:
-          TEXLIVE_INSTALL_PREFIX: ${{ runner.tool_cache }}/texlive
-          TEXLIVE_PROFILE_PATH: ${{ github.workspace }}/.github/texlive.profile
-        run: |
-          PATH=$TEXLIVE_INSTALL_PREFIX/bin/x86_64-linux:$PATH
-          tlmgr update --self
-          tlmgr update --all
-          echo "$TEXLIVE_INSTALL_PREFIX/bin/x86_64-linux" >> $GITHUB_PATH
+          cache-key: texlive-${{ matrix.os }}
+          packages-path: ${{ github.workspace }}/.github/texlive.packages
+          profile-path: ${{ github.workspace }}/.github/texlive.profile
 
       - name: Run tests
         run: bundle exec rspec

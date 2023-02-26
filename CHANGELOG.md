@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Lift restriction on required Ruby version to `< 3.1`.
+
+### Fixed
+
+- Solve `Psych::DisallowedClass` for ruby `>= 3.1` by explicitly allowing `Regexp` class.
+
 ## [0.1.4] - 2023-02-26
 
 ### Fixed

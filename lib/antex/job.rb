@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'rubygems/version'
+
 module Antex
   # This class is the beating heart of {Antex}.
   #
@@ -22,8 +24,13 @@ module Antex
     include LiquidHelpers
 
     # The configuration defaults for a +latexmk+/+dvisvgm+ pipeline.
+   if Gem::Version.new(Psych::VERSION) < Gem::Version.new("4.0.0")
     DEFAULTS =
       YAML.load_file(File.join(File.dirname(__FILE__), 'defaults.yml')).freeze
+   else
+    DEFAULTS =
+      YAML.load_file(File.join(File.dirname(__FILE__), 'defaults.yml'), permitted_classes: [Regexp]).freeze
+   end
 
     # @return [Hash] the initialization options
     attr_reader :options

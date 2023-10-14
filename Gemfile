@@ -12,6 +12,6 @@ end
 group :development do
   gem 'guard', '~> 2.18.0'
   gem 'guard-rspec', '~> 4.7.3'
-  gem 'rubocop', '~> 1.22.3'
+  gem 'rubocop', '~> 1.57.1'
   gem 'yard', '~> 0.9.26'
 end

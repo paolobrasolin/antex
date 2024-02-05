@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 gemspec
 
 group :development, :ci do
-  gem 'rspec', '~> 3.10.0'
+  gem 'rspec', '~> 3.13.0'
   gem 'simplecov', '~> 0.21.2'
 end
 

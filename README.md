@@ -6,7 +6,7 @@
 [![Maintainability badge][cc-maintainability-shield]][cc-maintainability-url]
 [![Test coverage badge][cc-coverage-shield]][cc-coverage-url]
 
-[build-shield]: https://img.shields.io/github/workflow/status/paolobrasolin/antex/CI/main?label=tests&logo=github
+[build-shield]: https://img.shields.io/github/actions/workflow/status/paolobrasolin/antex/main.yml?branch=main&label=tests&logo=github
 [build-url]: https://github.com/paolobrasolin/antex/actions/workflows/main.yml "CI tests status"
 [rubygems-shield]: https://img.shields.io/gem/v/antex?logo=ruby
 [rubygems-url]: https://rubygems.org/gems/antex "Latest release"

@@ -25,6 +25,6 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = '>= 2.6'
 
   spec.add_runtime_dependency 'base64'
-  spec.add_runtime_dependency 'liquid', ['>= 3', '< 6']
+  spec.add_runtime_dependency 'liquid', ['5.12.0']
   spec.add_runtime_dependency 'nokogiri', '~> 1'
 end

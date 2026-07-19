@@ -6,7 +6,7 @@ gemspec
 
 group :development, :ci do
   gem 'rspec', '~> 3.13'
-  gem 'simplecov', '~> 0.22'
+  gem 'simplecov', '~> 1.0'
 end
 
 group :development do
